@@ -1,0 +1,77 @@
+# Copyright 2026 Tim Korelov (https://github.com/lifestreamy)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Approve Database Entry
+
+on:
+  issue_comment:
+    types:
+      - created
+
+concurrency:
+  group: db-file-lock
+  cancel-in-progress: false
+
+jobs:
+  process-approval:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.comment.body == '/approve' &&
+      contains(fromJson('["OWNER", "COLLABORATOR", "MEMBER"]'),
+      github.event.comment.author_association)
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Parse Issue Form
+        id: parse
+        uses: zentered/issue-forms-body-parser@v2.2.0
+
+      - name: Update data.json with the new entry
+        id: update_json
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          PARSED_DATA: ${{ steps.parse.outputs.data }}
+          RAW_ISSUE_BODY: ${{ github.event.issue.body }}
+        run: python .github/scripts/approve_entry.py
+
+      - name: Commit Changes
+        if: steps.update_json.outputs.action_result != 'unchanged'
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add resources/db/data.json
+          git commit -m "Approve entry submission #${ISSUE_NUMBER}"
+          git push
+
+      - name: Comment on Issue without closing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SUCCESS_MSG: ${{ steps.update_json.outputs.success_msg }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "${SUCCESS_MSG}"
+
+      - name: Comment on Error
+        if: failure() && steps.update_json.outputs.error_msg != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ERROR_MSG: ${{ steps.update_json.outputs.error_msg }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "❌ Approval Failed. ${ERROR_MSG}"
