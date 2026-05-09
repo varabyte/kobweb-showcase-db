@@ -1,0 +1,66 @@
+# Copyright 2026 Tim Korelov (https://github.com/lifestreamy)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Check Form Entry
+
+on:
+  issue_comment:
+    types:
+      - created
+
+concurrency:
+  group: db-file-lock
+  cancel-in-progress: false
+
+jobs:
+  process-check:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.comment.body == '/check' &&
+      contains(fromJson('["OWNER", "COLLABORATOR", "MEMBER"]'),
+      github.event.comment.author_association)
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Parse Issue Form
+        id: parse
+        uses: zentered/issue-forms-body-parser@v2.2.0
+
+      - name: Validate JSON data
+        id: check_json
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          PARSED_DATA: ${{ steps.parse.outputs.data }}
+          RAW_ISSUE_BODY: ${{ github.event.issue.body }}
+        run: python .github/scripts/check_entry.py
+
+      - name: Comment on Issue without closing
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SUCCESS_MSG: ${{ steps.check_json.outputs.success_msg }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "${SUCCESS_MSG}"
+
+      - name: Comment on Error
+        if: failure() && steps.check_json.outputs.error_msg != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ERROR_MSG: ${{ steps.check_json.outputs.error_msg }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "❌ Check Failed. ${ERROR_MSG}"
