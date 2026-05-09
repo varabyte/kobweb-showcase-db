@@ -12,59 +12,94 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Submit New Entry
-description: Submit a new entry to the database
-title: "Submission: "
-labels: ["submission", "pending-review"]
+name: "Submit a Kobweb Project"
+description: "Submit your project to be featured on the official Kobweb Showcase website!"
+title: "Showcase Submission: <Your Site Name>"
+labels: ["showcase-submission"]
 body:
   - type: markdown
     attributes:
       value: |
-        Please fill out this form to add a new entry.
+        ## Welcome to the Kobweb Showcase!
+        Fill out the form below to submit your project. A maintainer will review it shortly.
+        *Please ensure your site is live and there is a single clear image of your app attached.*
+
   - type: input
-    id: author-name
+    id: project-name
     attributes:
-      label: Author Name
-      description: "Who created this entry?"
-      placeholder: "e.g., John Doe"
+      label: "Project Name"
+      description: "What is the name of your website or application?"
+      placeholder: "e.g., My Awesome Kobweb App"
     validations:
       required: true
+
   - type: input
-    id: entry-title
+    id: live-url
     attributes:
-      label: Title
-      description: "The name of the entry."
-      placeholder: "e.g., My Awesome Project"
+      label: "Live URL"
+      description: "Where is your project hosted?"
+      placeholder: "e.g., my-app.example.com or https://my-app.example.com"
     validations:
       required: true
-  - type: input
-    id: entry-url
-    attributes:
-      label: URL
-      description: "The primary link."
-      placeholder: "e.g., https://example.com"
-    validations:
-      required: true
-  - type: input
+
+  - type: textarea
     id: image-url
     attributes:
-      label: Image URL
-      description: "Link to a preview image (Must be hosted on githubusercontent.com)"
-      placeholder: "e.g., https://user-images.githubusercontent.com/.../image.png"
+      label: "Project Screenshot"
+      description: "Drag and drop or paste (Ctrl + V) a single screenshot of your app here. GitHub will automatically upload it and generate a Markdown image link. **Please leave the generated markdown link exactly as is.**"
+      placeholder: "Drag and drop your image here..."
     validations:
       required: true
+
   - type: textarea
-    id: entry-description
+    id: project-description
     attributes:
-      label: Description
-      description: "A short description."
+      label: "Project Description"
+      description: "What does your site do? Give us a short pitch."
+      placeholder: "This site is a portfolio showing off my..."
     validations:
       required: true
-  - type: input
-    id: entry-tags
+
+  - type: dropdown
+    id: site-type
     attributes:
-      label: Tags
-      description: "Comma-separated tags."
-      placeholder: "e.g., tag1, tag2, tag3"
+      label: "Site Type"
+      description: "What is your website architecture?"
+      options:
+        - "Static Site (SSG)"
+        - "Fullstack (Kobweb-native)"
+        - "Fullstack (other backend)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: core-features
+    attributes:
+      label: "Core Features"
+      description: "Select all the keywords that apply to your project."
+      multiple: true
+      options:
+        - "Personal Portfolio"
+        - "Animations"
+        - "Commercial"
+        - "Open Source"
+        - "Complex UI"
     validations:
       required: false
+
+  - type: input
+    id: other-keywords
+    attributes:
+      label: "Other Keywords"
+      description: "Any other features? (Semicolon separated)"
+      placeholder: "e.g., JS/TS Integration; WebGL; Spring Boot; Web Components; SEO-optimized"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: "Submission Agreement"
+      options:
+        - label: "I confirm that this project is built using Kobweb and is safe for public viewing."
+          required: true

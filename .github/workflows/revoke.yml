@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 name: Revoke Database Entry
 
 on:
@@ -38,7 +37,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Remove entry from data.json
+      - name: Remove entry from json database
         id: update_json
         env:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
@@ -52,13 +51,22 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add resources/db/data.json
-          git commit -m "Revoke entry submission #${ISSUE_NUMBER}"
+          git add resources/db/showcased-sites.json
+          git commit -m "Revoke showcase submission #${ISSUE_NUMBER}"
           git push
 
       - name: Comment on Issue without closing
+        if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SUCCESS_MSG: ${{ steps.update_json.outputs.success_msg }}
         run: |
           gh issue comment ${{ github.event.issue.number }} --body "${SUCCESS_MSG}"
+
+      - name: Comment on Error
+        if: failure() && steps.update_json.outputs.error_msg != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ERROR_MSG: ${{ steps.update_json.outputs.error_msg }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "❌ Revocation Failed. ${ERROR_MSG}"

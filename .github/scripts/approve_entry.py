@@ -31,7 +31,7 @@ def process_approval():
 
     issue_id = int(os.environ['ISSUE_NUMBER'])
 
-    raw_site_url = get_text(parsed_data, 'entry-url').strip(' <>')
+    raw_site_url = get_text(parsed_data, 'live-url').strip(' <>')
     if '](' in raw_site_url:
         raw_site_url = raw_site_url.split('](', 1)[1].split(')', 1)[0].strip()
     clean_site_url = raw_site_url if raw_site_url.startswith(('http://', 'https://')) else f"https://{raw_site_url}"
@@ -46,50 +46,72 @@ def process_approval():
         else:
             clean_image_url = src_value
 
-    raw_features = get_text(parsed_data, 'entry-tags')
+    site_type = get_text(parsed_data, 'site-type')
+    if not site_type:
+        fail(ERR_SITE_TYPE_MISSING)
+
+    # Map to shorter string, fallback to original if not found in mapping
+    short_site_type = SITE_TYPE_MAPPING.get(site_type, site_type)
+
+    features = get_text(parsed_data, 'core-features')
+    custom_features = get_text(parsed_data, 'other-keywords')
+
+    # Combine only features and custom keywords into tags
+    raw_features = f"{features};{custom_features}"
     clean_tags = [tag.strip() for tag in raw_features.split(';') if tag.strip() != 'None' and tag.strip()]
 
-    entry_name = get_text(parsed_data, 'entry-title').strip()
+    site_name = get_text(parsed_data, 'project-name').strip()
 
-    if not entry_name:
+    if not site_name:
         fail(ERR_NAME_EMPTY)
     if not clean_site_url or clean_site_url == "https://":
         fail(ERR_URL_INVALID)
     if not clean_image_url:
         fail(ERR_IMG_INVALID)
-    if not clean_image_url.startswith(ALLOWED_IMAGE_CDN_PREFIX):
+
+    if not any(clean_image_url.startswith(prefix) for prefix in ALLOWED_IMAGE_CDN_PREFIXES):
         fail(ERR_IMG_CDN)
 
-    new_entry = {
+    new_site = {
         "issueNumber": issue_id,
-        "name": entry_name,
+        "name": site_name,
         "url": clean_site_url,
         "imageUrl": clean_image_url,
-        "description": get_text(parsed_data, 'entry-description').strip(),
+        "description": get_text(parsed_data, 'project-description').strip(),
+        "siteType": short_site_type,
         "tags": clean_tags
     }
 
-    entries = load_db()
-    existing_index = next((i for i, entry in enumerate(entries) if entry.get("issueNumber") == issue_id), -1)
+    sites = load_db()
+    existing_index = next((i for i, site in enumerate(sites) if site.get("issueNumber") == issue_id), -1)
 
     if existing_index >= 0:
-        if entries[existing_index] == new_entry:
-            action_result = "unchanged"
+        if sites[existing_index] == new_site:
+            action_result = ApprovalResult.UNCHANGED.value
             success_message = MSG_APPROVE_UNCHANGED
         else:
-            entries[existing_index] = new_entry
-            action_result = "updated"
+            sites[existing_index] = new_site
+            action_result = ApprovalResult.UPDATED.value
             success_message = MSG_APPROVE_UPDATED
     else:
-        entries.append(new_entry)
-        action_result = "added"
+        sites.append(new_site)
+        action_result = ApprovalResult.ADDED.value
         success_message = MSG_APPROVE_ADDED
 
-    if action_result != "unchanged":
-        save_db(entries)
+    if action_result != ApprovalResult.UNCHANGED.value:
+        save_db(sites)
 
     set_action_output(action_result, success_message)
 
 
+def try_process_approval():
+    try:
+        process_approval()
+    except SystemExit:
+        raise
+    except Exception as e:
+        fail(f"An unexpected error occurred during approval: {e}")
+
+
 if __name__ == "__main__":
-    process_approval()
+    try_process_approval()
