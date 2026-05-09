@@ -12,24 +12,46 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# File Paths
-DB_FILE_PATH = "resources/db/data.json"
+from enum import Enum
 
-# Image CDN Validation
-ALLOWED_IMAGE_CDN_PREFIX = "https://github.com/user-attachments/assets/"
+# File Paths
+DB_FILE_PATH = "resources/db/showcased-sites.json"
+
+# Image CDN Validation (List of allowed prefixes)
+ALLOWED_IMAGE_CDN_PREFIXES = [
+    "https://github.com/user-attachments/assets/"
+]
 
 # Error Messages
 ERR_PARSE = "Failed to parse JSON data from GitHub Action: {}"
-ERR_NAME_EMPTY = "Validation Failed: Entry name cannot be empty"
-ERR_URL_INVALID = "Validation Failed: Invalid or missing Entry URL"
+ERR_NAME_EMPTY = "Validation Failed: Site name cannot be empty"
+ERR_SITE_TYPE_MISSING = "Validation Failed: Please select a Site Type from the list"
+ERR_URL_INVALID = "Validation Failed: Invalid or missing Site URL"
 ERR_IMG_INVALID = "Validation Failed: Invalid or missing Image URL"
-ERR_IMG_CDN = f"The provided Image URL does not correspond to the GitHub CDN — \"{ALLOWED_IMAGE_CDN_PREFIX}\""
+ERR_IMG_CDN = f"The provided Image URL does not correspond to any of the allowed CDN providers — {', '.join(ALLOWED_IMAGE_CDN_PREFIXES)}"
 
 # Success Messages (Approval)
 MSG_APPROVE_UNCHANGED = "✅ Nothing has changed since the last submission, keeping the last version."
-MSG_APPROVE_UPDATED = "✅ The entry has been successfully updated in the database."
-MSG_APPROVE_ADDED = "✅ The entry has been approved and added to the database."
+MSG_APPROVE_UPDATED = "✅ The site has been successfully updated in the showcase."
+MSG_APPROVE_ADDED = "✅ The site has been approved and added to the showcase."
 
 # Success Messages (Revocation)
-MSG_REVOKE_SUCCESS = "✅ The entry has been successfully revoked and removed from the database."
+MSG_REVOKE_SUCCESS = "✅ The site has been successfully revoked and removed from the showcase."
 MSG_REVOKE_NOT_FOUND = "✅ There is no submission to revoke for this issue."
+
+# Site Type Mapping (Verbose in GitHub Forms -> short in DB)
+SITE_TYPE_MAPPING = {
+    "Static Site (SSG)": "SSG",
+    "Fullstack (Kobweb-native)": "Kobweb",
+    "Fullstack (other backend)": "Other"
+}
+
+# Enums for GitHub Action Outputs
+class ApprovalResult(str, Enum):
+    UNCHANGED = "unchanged"
+    UPDATED = "updated"
+    ADDED = "added"
+
+class RevocationResult(str, Enum):
+    REVOKED = "revoked"
+    NOT_FOUND = "not_found"

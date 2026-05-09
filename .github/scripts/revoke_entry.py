@@ -14,8 +14,8 @@
 
 import os
 
-from common import load_db, save_db, set_action_output
-from config import MSG_REVOKE_SUCCESS, MSG_REVOKE_NOT_FOUND
+from common import fail, load_db, save_db, set_action_output
+from config import MSG_REVOKE_SUCCESS, MSG_REVOKE_NOT_FOUND, RevocationResult
 
 
 def process_revocation():
@@ -27,14 +27,23 @@ def process_revocation():
 
     if len(updated_entries) < original_length:
         save_db(updated_entries)
-        action_result = "revoked"
+        action_result = RevocationResult.REVOKED.value
         success_message = MSG_REVOKE_SUCCESS
     else:
-        action_result = "not_found"
+        action_result = RevocationResult.NOT_FOUND.value
         success_message = MSG_REVOKE_NOT_FOUND
 
     set_action_output(action_result, success_message)
 
 
+def try_process_revocation():
+    try:
+        process_revocation()
+    except SystemExit:
+        raise
+    except Exception as e:
+        fail(f"An unexpected error occurred during revocation: {e}")
+
+
 if __name__ == "__main__":
-    process_revocation()
+    try_process_revocation()
