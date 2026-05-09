@@ -47,30 +47,33 @@ def process_approval():
             clean_image_url = src_value
 
     site_type = get_text(parsed_data, 'site-type')
+    features = get_text(parsed_data, 'core-features')
+    custom_features = get_text(parsed_data, 'other-keywords')
+    site_name = get_text(parsed_data, 'project-name').strip()
+
+    errors = []
+
+    if not site_name:
+        errors.append(ERR_NAME_EMPTY)
+    if not clean_site_url or clean_site_url == "https://":
+        errors.append(ERR_URL_INVALID)
     if not site_type:
-        fail(ERR_SITE_TYPE_MISSING)
+        errors.append(ERR_SITE_TYPE_MISSING)
+    if not clean_image_url:
+        errors.append(ERR_IMG_INVALID)
+    elif not any(clean_image_url.startswith(prefix) for prefix in ALLOWED_IMAGE_CDN_PREFIXES):
+        errors.append(ERR_IMG_CDN)
+    if errors:
+        # Use <br> to format as newlines in Markdown without breaking GITHUB_OUTPUT single-line constraints
+        joined_errors = "<br>".join(f"• {err.replace('Validation Failed: ', '')}" for err in errors)
+        fail(f"Please fix the following issues:<br>{joined_errors}")
 
     # Map to shorter string, fallback to original if not found in mapping
     short_site_type = SITE_TYPE_MAPPING.get(site_type, site_type)
 
-    features = get_text(parsed_data, 'core-features')
-    custom_features = get_text(parsed_data, 'other-keywords')
-
     # Combine only features and custom keywords into tags
     raw_features = f"{features};{custom_features}"
     clean_tags = [tag.strip() for tag in raw_features.split(';') if tag.strip() != 'None' and tag.strip()]
-
-    site_name = get_text(parsed_data, 'project-name').strip()
-
-    if not site_name:
-        fail(ERR_NAME_EMPTY)
-    if not clean_site_url or clean_site_url == "https://":
-        fail(ERR_URL_INVALID)
-    if not clean_image_url:
-        fail(ERR_IMG_INVALID)
-
-    if not any(clean_image_url.startswith(prefix) for prefix in ALLOWED_IMAGE_CDN_PREFIXES):
-        fail(ERR_IMG_CDN)
 
     new_site = {
         "issueNumber": issue_id,
