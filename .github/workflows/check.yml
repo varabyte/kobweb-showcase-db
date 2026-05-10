@@ -23,7 +23,9 @@ jobs:
   process-check:
     runs-on: ubuntu-latest
     if: >
-      github.event.comment.body == '/check' &&
+      (github.event.comment.body == '/check' || 
+       startsWith(github.event.comment.body, '/check ') || 
+       startsWith(github.event.comment.body, ' /check')) &&
       contains(fromJson('["OWNER", "COLLABORATOR", "MEMBER"]'),
       github.event.comment.author_association)
     permissions:

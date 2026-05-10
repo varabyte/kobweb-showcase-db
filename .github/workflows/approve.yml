@@ -19,15 +19,16 @@ on:
     types:
       - created
 
-concurrency:
-  group: db-file-lock
-  cancel-in-progress: false
-
 jobs:
   process-approval:
     runs-on: ubuntu-latest
+    concurrency:
+      group: db-file-lock
+      cancel-in-progress: false
     if: >
-      github.event.comment.body == '/approve' &&
+      (github.event.comment.body == '/approve' || 
+       startsWith(github.event.comment.body, '/approve ') || 
+       startsWith(github.event.comment.body, ' /approve')) &&
       contains(fromJson('["OWNER", "COLLABORATOR", "MEMBER"]'),
       github.event.comment.author_association)
     permissions:
