@@ -30,7 +30,8 @@ If you are a developer looking to get your Kobweb project featured on the offici
 
 *(A maintainer will review your submission shortly. Once approved, the automated bot will instantly add it to the database!)*
 
-> 🖼️ **[PLACEHOLDER: Insert screenshot of the "New Issue" button or the Form itself here]**
+> <img width="1981" height="440" alt="image" src="https://github.com/user-attachments/assets/aab20763-65f9-4e38-b8eb-532422d6fbdb" />
+
 
 ---
 
