@@ -19,10 +19,6 @@ on:
     types:
       - created
 
-concurrency:
-  group: db-file-lock
-  cancel-in-progress: false
-
 jobs:
   process-check:
     runs-on: ubuntu-latest
