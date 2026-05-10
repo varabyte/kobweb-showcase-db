@@ -1,6 +1,6 @@
 # Kobweb Showcase Database
 > **A fully GitHub-hosted CRUD-compatible JSON database powering the official Kobweb Showcase.**
-> *Tailored from the [IssueOps JSON Database Template](https://github.com/lifestreamy/github-actions-db-template) made by Tim Korelov.*
+> *Tailored from the [IssueOps JSON Database Template](https://github.com/lifestreamy/issueops-json-db-template) made by Tim Korelov.*
 >
 > 💡 **Build your own:** You can use the original template linked above to instantly set up a completely free,
 >  serverless backend for your own portfolios, directory sites, or collections!
