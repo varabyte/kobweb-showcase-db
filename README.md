@@ -1,94 +1,122 @@
-# IssueOps JSON Database Template
-> **A fully GitHub-hosted, CRUD-compatible JSON database.**
-> *Created by [Tim Korelov (@lifestreamy)](https://github.com/lifestreamy)*
+# Kobweb Showcase Database
+> **A fully GitHub-hosted CRUD-compatible JSON database powering the official Kobweb Showcase.**
+> *Tailored from the [IssueOps JSON Database Template](https://github.com/lifestreamy/github-actions-db-template) made by Tim Korelov.*
+>
+> 💡 **Build your own:** You can use the original template linked above to instantly set up a completely free,
+>  serverless backend for your own portfolios, directory sites, or collections!
 
-A completely free, generalized template that leverages GitHub Actions and IssueOps to manage a serverless JSON data collection.
-
-This repository is designed to be used as a **GitHub Template**. Generate your own repository from this one to instantly set up a backend for portfolios, showcases, link trees, and directory sites.
+A serverless JSON database that leverages GitHub Actions and IssueOps to manage website submissions for the Kobweb Showcase frontend.
 
 ---
 
 ## Table of Contents
-- [Work in Progress (WIP) Disclaimer](#work-in-progress-wip-disclaimer)
-- [Features](#features)
-- [Consuming the Database](#consuming-the-database)
-- [Repository Structure](#repository-structure)
-- [How to Use & Tailoring Guide](#how-to-use--tailoring-guide)
+- [How to Submit Your Website](#how-to-submit-your-website)
+- [The User Submission Pipeline](#the-user-submission-pipeline)
+- [Showcase Management Commands](#showcase-management-commands)
+- [Image Parsing & Validation](#image-parsing--validation)
+- [Directory Structure](#directory-structure)
 
 ---
 
-> ### Work in Progress (WIP) Disclaimer
-> **This template is currently in its V1 state.**
-> While fully functional, it requires manual editing of several files to tailor it to your specific data schema. In the future, this repository will feature an automated workflow driven by a single `schema.yml` file, along with automated data-migration tools. For now, please follow the "Tailoring Guide" below to adapt this database for your needs.
+## How to Submit Your Website
+
+If you are a developer looking to get your Kobweb project featured on the official showcase, you are in the right place!
+
+1. Navigate to the **Issues** tab at the top of this repository.
+2. Click the green **New issue** button.
+3. Click the "Submit a Kobweb Project" option.
+4. Fill out the required fields (Name, Live URL, Screenshot, Description, and Site Type).
+5. Click **Submit new issue**.
+
+*(A maintainer will review your submission shortly. Once approved, the automated bot will instantly add it to the database!)*
+
+> 🖼️ **[PLACEHOLDER: Insert screenshot of the "New Issue" button or the Form itself here]**
 
 ---
 
-## Features
-* **Serverless CRUD:** Submit, approve, and revoke entries directly through GitHub Issues.
-* **JSON Data Store:** Submissions are automatically parsed and saved into a clean `data.json` file.
-* **GitHub CDN Integration:** Image URLs are validated and securely hosted via GitHub's native issue attachment CDN.
-* **Concurrency Safe:** Built-in lock mechanisms prevent race conditions when multiple entries are processed simultaneously.
+## The User Submission Pipeline
+
+Instead of hosting a custom web form and external database, this repository relies entirely on **user-created GitHub Issues** for data entry.
+When a developer wants to submit a website to the showcase, they simply fill out the repository's structured Issue Form.
+
+`resources/db/showcased-sites.json` acts as the persistent database storing these user submissions.
+It is not modified manually, but rather through automated workflows triggered by maintainer comments on the user's issue.
 
 ---
 
-## Consuming the Database
-Because the database is hosted natively on GitHub, you do not need a traditional backend API to read the data. You can fetch the JSON array directly into your frontend (e.g., React, Vue, or Kobweb applications) using GitHub's Raw Content URL.
+## Showcase Management Commands
 
-To get the URL for your database:
-1. Navigate to `resources/db/data.json` in your repository.
-2. Click the **"Raw"** button in the top right corner of the file viewer.
-3. Copy the URL from your browser. It will look like this:
-   `https://raw.githubusercontent.com/[YOUR_USERNAME]/[REPO_NAME]/main/resources/db/data.json`
+Maintainers review submissions and use specific commands to trigger database updates.
+Execution is strictly limited to users with **OWNER**, **COLLABORATOR**, or **MEMBER** roles.
 
-You can now use a simple HTTP GET request (`fetch()`) to pull this JSON into your frontend application! *(Note: Your repository must be Public for this URL to be accessible without authentication headers).*
+> **Note on Workflow Concurrency:** The `/approve` and `/revoke` workflows are concurrency-locked at the job-level. This ensures safe sequential execution, preventing `git push` race conditions when multiple issues are managed simultaneously. `/check` runs asynchronously.
+
+<details>
+<summary><b><code>/check</code> (Dry Run & Validation)</b></summary>
+
+Parses the issue form and dry-runs validation logic without touching the database. Outputs the resulting JSON for visual inspection.
+
+| Outcome | Bot Response |
+| :--- | :--- |
+| **Passed** | ✅ Validation Passed! The form is correctly filled... |
+| **Failed** | ❌ Check Failed. Please fix the following issues: [List] |
+</details>
+
+<details>
+<summary><b><code>/approve</code> (Database Mutation)</b></summary>
+
+Parses the form, validates all fields, and commits the data to the JSON file.
+
+| Outcome | Bot Response |
+| :--- | :--- |
+| **Added** | ✅ The site has been approved and added to the showcase. |
+| **Updated** | ✅ The site has been successfully updated in the showcase. |
+| **Unchanged** | ✅ Nothing has changed since the last submission... |
+| **Failed** | ❌ Approval Failed. Please fix the following issues: [List] |
+</details>
+
+<details>
+<summary><b><code>/revoke</code> (Database Deletion)</b></summary>
+
+Locates the dictionary matching the current issue ID and removes it from the JSON file.
+
+| Outcome | Bot Response |
+| :--- | :--- |
+| **Revoked** | ✅ The site has been successfully revoked and removed... |
+| **Not Found** | ✅ There is no submission to revoke for this issue. |
+</details>
 
 ---
 
-## Repository Structure
+## Image Parsing & Validation
+
+The automation script extracts the primary image directly from the raw markdown body by searching for the auto-generated `src=` HTML attribute wrapping the image link.
+For security and performance, image URLs are strictly validated against a whitelist of approved GitHub CDN prefixes (e.g., `https://github.com/user-attachments/assets/`).
+
+---
+
+## Directory Structure
 
 ```text
 .
 ├── .github/
 │   ├── ISSUE_TEMPLATE/
-│   │   └── submit-entry.yml    # The frontend form users fill out to submit data
+│   │   └── submit-entry.yml    # The frontend form users fill out to submit their site
 │   ├── scripts/
-│   │   ├── approve_entry.py    # Parses the issue body and adds it to the JSON db
+│   │   ├── approve_entry.py    # Mutates the JSON database (Appends/Updates)
+│   │   ├── check_entry.py      # Dry-runs validation and outputs the parsed dictionary
 │   │   ├── common.py           # Shared helper functions (JSON loading/saving, errors)
-│   │   ├── config.py           # Single source of truth for paths, CDN rules, and messages
-│   │   └── revoke_entry.py     # Removes an entry from the JSON db by Issue Number
+│   │   ├── config.py           # Enums, CDN rules, messages, and UI-to-DB string mapping
+│   │   ├── revoke_entry.py     # Removes an entry from the JSON db by Issue Number
+│   │   └── validator.py        # Pure function that parses form data and batches errors
 │   └── workflows/
-│       ├── approve.yml         # Triggers on '/approve' issue comment
-│       └── revoke.yml          # Triggers on '/revoke' issue comment
+│       ├── approve.yml         # Triggers on `/approve` issue comment
+│       ├── check.yml           # Triggers on `/check` issue comment
+│       └── revoke.yml          # Triggers on `/revoke` issue comment
+├── docs/
+│   └── testing_github_actions.md # Guide on safely testing workflows using a public fork
 ├── resources/
 │   └── db/
-│       └── data.json           # The actual database (starts as an empty array `[]`)
-├── LICENSE
-├── NOTICE
+│       └── showcased-sites.json  # The database! Stores all approved Kobweb submissions
 └── README.md
 ```
-
----
-
-## How to Use & Tailoring Guide
-To start using this database, you must generate a copy and tailor the python parsing logic to match the fields you want to collect.
-
-**1. Generate the Repository**
-Click **Use this template** -> **Create a new repository** at the top of this page.
-
-**2. Define your Schema (The Issue Form)**
-Open `.github/ISSUE_TEMPLATE/submit-entry.yml`. This YAML file defines the fields users will fill out. You can add or remove fields (e.g., changing `entry-url` to `github-link`). **Take note of the `id` you assign to each field.**
-
-**3. Update the Python Logic**
-Open `.github/scripts/approve_entry.py`. You must map the `id` fields from your YAML file to your desired JSON keys.
-* Find the section where data is extracted: `get_text(parsed_data, 'entry-url')`. Change `'entry-url'` to match the new `id` from your YAML file.
-* Find the `new_entry = { ... }` dictionary definition. Add, remove, or rename the JSON keys to match your desired database structure.
-
-**4. Update Configuration (Optional)**
-Open `.github/scripts/config.py`. Here you can customize the success/error messages the GitHub Action bot will comment on the issue, or change the `DB_FILE_PATH` if you prefer to store your JSON file elsewhere.
-
-**5. Start Collecting Data**
-* Users submit new entries by filling out the **Submit New Entry** issue form.
-* Maintainers review the issue and reply with an `/approve` or `/revoke` comment.
-* GitHub Actions automatically process the command, commit the changes, and update the `data.json` database.
-
-*(Note: Future versions of this template will automate Steps 2 and 3 by generating the form and python mappings from a single config file!)*
