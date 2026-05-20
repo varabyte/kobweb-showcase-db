@@ -10,5 +10,20 @@
       "Commercial, Open Source, Complex UI",
       "Varabyte-Official"
     ]
+  },
+  {
+    "issueNumber": 3,
+    "name": "YouTube Redesigned",
+    "url": "https://youtuberedesignedv2.netlify.app/",
+    "imageUrl": "https://github.com/user-attachments/assets/9b259bcf-aa17-4af7-b120-e9040e6ec7f9",
+    "description": "Reimagine YouTube: A Stunning, Next-Gen Experience.\n\nA sleek, modern YouTube redesign crafted with Kotlin/JS and Kobweb. Experience your favorite content like never before! Features dynamic drawers, intuitive playlists, immersive theater mode, and keyboard shortcuts.",
+    "siteType": "SSG",
+    "tags": [
+      "Complex UI, Open Source, Animations",
+      "YouTube",
+      "Redesign",
+      "Demo",
+      "Portfolio"
+    ]
   }
 ]
