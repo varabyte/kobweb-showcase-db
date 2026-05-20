@@ -39,5 +39,20 @@
       "Blog",
       "Kobweb-Expert"
     ]
+  },
+  {
+    "issueNumber": 5,
+    "name": "SVG to Compose",
+    "url": "https://www.svgtocompose.com/",
+    "imageUrl": "https://github.com/user-attachments/assets/6df00ac1-ddb0-4d50-b787-3dc2a8d2d637",
+    "description": "Convert SVG and Android Vector Drawables into Jetpack Compose ImageVector code. CLI tool and Gradle plugin for Kotlin Multiplatform.",
+    "siteType": "SSG",
+    "tags": [
+      "Tool, Open Source, KMP",
+      "SVG",
+      "Compose",
+      "KMP",
+      "Developer-Tool"
+    ]
   }
 ]
