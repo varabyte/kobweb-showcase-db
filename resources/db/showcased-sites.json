@@ -68,5 +68,19 @@
       "Mobile",
       "Animations"
     ]
+  },
+  {
+    "issueNumber": 7,
+    "name": "Android Dev Per\u00fa",
+    "url": "https://androidperu.dev/",
+    "imageUrl": "https://github.com/user-attachments/assets/4beff2f7-1959-4e0d-b255-f7f4339567c3",
+    "description": "The Android Dev Per\u00fa community site and conference landing page. Open source community website for the Peruvian Android developer community, built with Kobweb.",
+    "siteType": "SSG",
+    "tags": [
+      "Commercial, Open Source,",
+      "Community",
+      "Android",
+      "Conference"
+    ]
   }
 ]
