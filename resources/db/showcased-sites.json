@@ -54,5 +54,19 @@
       "KMP",
       "Developer-Tool"
     ]
+  },
+  {
+    "issueNumber": 6,
+    "name": "Itami Mobile Portfolio",
+    "url": "https://itami-mobile.onrender.com/",
+    "imageUrl": "https://github.com/user-attachments/assets/b8168845-2b62-4062-ad94-42909ded7734",
+    "description": "Personal portfolio website built with Kobweb. Showcasing mobile development projects with modern animations and effects.",
+    "siteType": "SSG",
+    "tags": [
+      "Portfolio, Open Source, Animations, Complex UI",
+      "Portfolio",
+      "Mobile",
+      "Animations"
+    ]
   }
 ]
