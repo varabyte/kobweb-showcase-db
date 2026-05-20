@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "issueNumber": 2,
+    "name": "Kobweb Official Website",
+    "url": "https://kobweb.varabyte.com/",
+    "imageUrl": "https://github.com/user-attachments/assets/8ece56f3-dd03-401d-bfd5-8d0341aa3454",
+    "description": "Create web apps in Kotlin!\n\nKobweb is an opinionated framework built on top of Compose HTML.\n\nIt includes everything you need to build rich, dynamic websites, as well as web applications, while being able to leverage the greater Kotlin ecosystem.",
+    "siteType": "SSG",
+    "tags": [
+      "Commercial, Open Source, Complex UI",
+      "Varabyte-Official"
+    ]
+  }
+]
