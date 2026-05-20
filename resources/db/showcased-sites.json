@@ -25,5 +25,19 @@
       "Demo",
       "Portfolio"
     ]
+  },
+  {
+    "issueNumber": 4,
+    "name": "Pierre Roy's Portfolio",
+    "url": "https://ayfri.com/",
+    "imageUrl": "https://github.com/user-attachments/assets/88b0a3ad-920c-4191-a65a-4f74ee0382aa",
+    "description": "Hi, I'm Pierre Roy, an IT student passionate about computer science and programming. Discover my projects and blog on this website. Entirely made in Kobweb and Compose HTML.",
+    "siteType": "SSG",
+    "tags": [
+      "Portfolio, Open Source, Complex UI, Animations",
+      "Portfolio",
+      "Blog",
+      "Kobweb-Expert"
+    ]
   }
 ]
