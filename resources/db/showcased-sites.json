@@ -108,5 +108,18 @@
       "Browser Extension",
       "Collaboration, Browser Extension, Unique Use Case"
     ]
+  },
+  {
+    "issueNumber": 10,
+    "name": "Kotfolio",
+    "url": "https://kotfolio.onrender.com/",
+    "imageUrl": "https://github.com/user-attachments/assets/cc1f66ef-ccfd-4308-9c0e-85dbc0525648",
+    "description": "Kotfolio is a minimalistic and clean open-source portfolio template built with Kobweb. Features a sleek black color scheme, responsive design, and serves as a ready-to-use portfolio starter for Kotlin developers.",
+    "siteType": "SSG",
+    "tags": [
+      "Personal Portfolio, Open Source",
+      "Template",
+      "Minimal"
+    ]
   }
 ]
