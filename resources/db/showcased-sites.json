@@ -308,5 +308,22 @@
       "Commercial",
       "Brazil"
     ]
+  },
+  {
+    "issueNumber": 25,
+    "name": "Aonea",
+    "url": "https://www.aonea.com.au/",
+    "imageUrl": "https://github.com/user-attachments/assets/340d066c-fdc9-4b89-969d-3e0d08f2a838",
+    "description": "Professional services landing page for Australian tax consultancy. Gain the advantage. Engage an experienced, qualified tax professional.",
+    "siteType": "SSG",
+    "tags": [
+      "Commercial",
+      "Australia",
+      "Consultancy",
+      "Tax",
+      "Accounting",
+      "Android",
+      "iOS"
+    ]
   }
 ]
