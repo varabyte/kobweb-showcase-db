@@ -268,5 +268,16 @@
       "Personal Portfolio",
       "First Project"
     ]
+  },
+  {
+    "issueNumber": 22,
+    "name": "Luki120 Portfolio",
+    "url": "https://luki120.xyz/",
+    "imageUrl": "https://github.com/user-attachments/assets/9df913e3-7ca4-4b88-ace8-5d67b4dbffb1",
+    "description": "iOS developer with 5+ years of experience. Personal portfolio site with animations and multi-section layout.",
+    "siteType": "SSG",
+    "tags": [
+      "Personal Portfolio, Open Source"
+    ]
   }
 ]
