@@ -279,5 +279,22 @@
     "tags": [
       "Personal Portfolio, Open Source"
     ]
+  },
+  {
+    "issueNumber": 23,
+    "name": "LUX Energy",
+    "url": "https://lux.energy/",
+    "imageUrl": "https://github.com/user-attachments/assets/3923879b-01b6-43e4-b89d-a481a91c8c9b",
+    "description": "Zenmo Simulations develops the open-source LUX energy twin to accelerate the transition to sustainable energy. Rooted in academic research from TU Eindhoven, the company builds quantitative, agent-based models to manage semi-autonomous energy systems and resolve grid congestion. Through foundation projects like SparkCity, NEON, and HOLON, they create practical digital twins that empower local energy hubs and businesses to efficiently integrate solar, wind, and electric mobility solutions. The scope includes: Agent-based modeling, Zero-emission transition, Digital energy twins.",
+    "siteType": "SSG",
+    "tags": [
+      "Commercial",
+      "Netherlands",
+      "Agent-based modeling",
+      "Zero-emission transition",
+      "Digital energy twins",
+      "Simulation",
+      "Video Embedding"
+    ]
   }
 ]
