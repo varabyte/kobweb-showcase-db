@@ -121,5 +121,22 @@
       "Template",
       "Minimal"
     ]
+  },
+  {
+    "issueNumber": 11,
+    "name": "Kore Library",
+    "url": "https://kore.ayfri.com/",
+    "imageUrl": "https://github.com/user-attachments/assets/311a524f-3266-4410-abe5-89551c413194",
+    "description": "Kore is a modern, open-source, and easy-to-use Kotlin library for Minecraft datapack development.\nDesigned to be simple, fast, and easy to use. The documentation site features polished design with improved tree navigation.",
+    "siteType": "SSG",
+    "tags": [
+      "Open Source",
+      "Kotlin",
+      "Minecraft",
+      "Library",
+      "Documentation",
+      "Versioning",
+      "Complex UI"
+    ]
   }
 ]
