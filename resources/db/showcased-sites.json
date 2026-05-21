@@ -256,5 +256,17 @@
       "Kotlin",
       "Cookies"
     ]
+  },
+  {
+    "issueNumber": 21,
+    "name": "NoArtCode",
+    "url": "https://noartcode.io/",
+    "imageUrl": "https://github.com/user-attachments/assets/59637c9b-e735-434c-bc28-36de70e68325",
+    "description": "NoArtCode - a personal website built as a first Kobweb project. Powered by Kobweb.",
+    "siteType": "SSG",
+    "tags": [
+      "Personal Portfolio",
+      "First Project"
+    ]
   }
 ]
