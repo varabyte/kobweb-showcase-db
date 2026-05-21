@@ -243,5 +243,18 @@
       "Mobile",
       "Web"
     ]
+  },
+  {
+    "issueNumber": 20,
+    "name": "Kumaran Portfolio",
+    "url": "https://www.kumaran.me/",
+    "imageUrl": "https://github.com/user-attachments/assets/523876cd-6184-43d1-b67f-d4bbd48294f0",
+    "description": "Portfolio site built in Kotlin as an experienced backend developer's first Kobweb project.",
+    "siteType": "SSG",
+    "tags": [
+      "Personal Portfolio",
+      "Kotlin",
+      "Cookies"
+    ]
   }
 ]
