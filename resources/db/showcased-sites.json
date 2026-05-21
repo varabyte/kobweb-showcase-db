@@ -95,5 +95,18 @@
       "Android",
       "Kotlin"
     ]
+  },
+  {
+    "issueNumber": 8,
+    "name": "Weaved",
+    "url": "https://weaved.cc/",
+    "imageUrl": "https://github.com/user-attachments/assets/1bb838c5-c540-4437-adaa-a9ed73428cd1",
+    "description": "Weaved is a browser extension made with Kobweb and a mobile app that lets you highlight and comment on any website, embedding discussions directly into the web. Join the conversation and see what others are saying in context. The homepage features live preview code shared from the extension module itself.",
+    "siteType": "SSG",
+    "tags": [
+      "Commercial",
+      "Browser Extension",
+      "Collaboration, Browser Extension, Unique Use Case"
+    ]
   }
 ]
