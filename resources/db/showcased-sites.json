@@ -153,5 +153,17 @@
       "i18n",
       "Auth"
     ]
+  },
+  {
+    "issueNumber": 13,
+    "name": "Binay Shaw Portfolio",
+    "url": "https://binay.is-a.dev/",
+    "imageUrl": "https://github.com/user-attachments/assets/ecd65c38-aba9-4ec1-a978-260ae7b65377",
+    "description": "Updated personal portfolio showcasing animations and project management style portfolio sections. Built with Kobweb featuring modern animations and smooth transitions.",
+    "siteType": "SSG",
+    "tags": [
+      "Personal Portfolio, Animations",
+      "Android"
+    ]
   }
 ]
