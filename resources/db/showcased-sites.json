@@ -178,5 +178,19 @@
       "Android",
       "Personal Portfolio"
     ]
+  },
+  {
+    "issueNumber": 15,
+    "name": "BordeauxKt",
+    "url": "https://bordeauxkt.io/",
+    "imageUrl": "https://github.com/user-attachments/assets/38ab0a4f-eb95-402f-8e61-ee05410e5a29",
+    "description": "BordeauxKt is a user group serving the Kotlin language and its ecosystem, aimed at developers in Bordeaux and its metropolitan area.\n\nWe organize evenings around technical presentations to discuss the different uses of Kotlin: server-side development, mobile, web, or native.",
+    "siteType": "SSG",
+    "tags": [
+      "Organization",
+      "Community",
+      "Meetings",
+      "Kotlin"
+    ]
   }
 ]
