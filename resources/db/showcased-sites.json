@@ -138,5 +138,20 @@
       "Versioning",
       "Complex UI"
     ]
+  },
+  {
+    "issueNumber": 12,
+    "name": "SorenKai",
+    "url": "https://www.sorenkai.com/",
+    "imageUrl": "https://github.com/user-attachments/assets/0df1f088-c296-4bf7-988e-95d05e37866a",
+    "description": "Soren Kai is a writer and technologist exploring how technology shapes human connection, identity, and belonging. Personal site with multilingual support including Spanish /es/ route.",
+    "siteType": "SSG",
+    "tags": [
+      "Personal Portfolio",
+      "Writer",
+      "Blog",
+      "i18n",
+      "Auth"
+    ]
   }
 ]
