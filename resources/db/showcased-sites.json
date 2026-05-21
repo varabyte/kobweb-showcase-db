@@ -192,5 +192,18 @@
       "Meetings",
       "Kotlin"
     ]
+  },
+  {
+    "issueNumber": 16,
+    "name": "Phantom Portfolio",
+    "url": "https://phantom-vk.github.io/MyPortfolio/",
+    "imageUrl": "https://github.com/user-attachments/assets/86c4f528-00f3-4792-8e03-304f9442d56b",
+    "description": "Personal portfolio website built with Kobweb. Clean, futuristic, animated design with a focus on presenting developer projects.",
+    "siteType": "SSG",
+    "tags": [
+      "Personal Portfolio, Open Source",
+      "GitHub Pages",
+      "Animaitons"
+    ]
   }
 ]
