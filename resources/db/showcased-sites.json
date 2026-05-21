@@ -217,5 +217,16 @@
       "Personal Portfolio, Open Source, Animations",
       "Terminal Simulation"
     ]
+  },
+  {
+    "issueNumber": 18,
+    "name": "Sushant Hande Portfolio",
+    "url": "https://sushanthande.dev/",
+    "imageUrl": "https://github.com/user-attachments/assets/c293e615-3ba4-434e-b883-8c9e577a2239",
+    "description": "Professional portfolio with custom color theme toggling between white and dark blue color modes. Features a LinkedIn recommendation section for a polished professional feel.",
+    "siteType": "SSG",
+    "tags": [
+      "Personal Portfolio, Open Source"
+    ]
   }
 ]
