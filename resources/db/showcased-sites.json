@@ -165,5 +165,18 @@
       "Personal Portfolio, Animations",
       "Android"
     ]
+  },
+  {
+    "issueNumber": 14,
+    "name": "Neotica",
+    "url": "https://neotica.id/",
+    "imageUrl": "https://github.com/user-attachments/assets/9e00b0ab-7ed1-436b-8dec-10a6de75372a",
+    "description": "Neotica is a mobile development research platform. Built with Kobweb with careful attention to component structure and hover behavior. Features a clean, modern design.",
+    "siteType": "SSG",
+    "tags": [
+      "Commercial",
+      "Android",
+      "Personal Portfolio"
+    ]
   }
 ]
