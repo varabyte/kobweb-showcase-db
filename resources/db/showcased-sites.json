@@ -228,5 +228,20 @@
     "tags": [
       "Personal Portfolio, Open Source"
     ]
+  },
+  {
+    "issueNumber": 19,
+    "name": "VRaJaT Creations",
+    "url": "https://vrajatcreations.com/",
+    "imageUrl": "https://github.com/user-attachments/assets/2eda4ba5-a1b3-418c-8e81-063c7b48ef7f",
+    "description": "VRaJaT Creations designs and develops Android, iOS, and Web Apps. A digital agency landing page showcasing their team's services and capabilities.",
+    "siteType": "SSG",
+    "tags": [
+      "Commercial",
+      "Agency",
+      "Organization",
+      "Mobile",
+      "Web"
+    ]
   }
 ]
