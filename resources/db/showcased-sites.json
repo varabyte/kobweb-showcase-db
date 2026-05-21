@@ -82,5 +82,18 @@
       "Android",
       "Conference"
     ]
+  },
+  {
+    "issueNumber": 9,
+    "name": "Musaib Shabir Portfolio",
+    "url": "https://musaibshabir.github.io/Portfolio/",
+    "imageUrl": "https://github.com/user-attachments/assets/bb7ebd54-385d-4815-8aa7-882e98b1f612",
+    "description": "Portfolio of Musaib Shabir, a Computer Science Engineering graduate specializing in modern Android development with Kotlin and Jetpack Compose. Features clean professional design.",
+    "siteType": "SSG",
+    "tags": [
+      "Personal Portfolio, Animations",
+      "Android",
+      "Kotlin"
+    ]
   }
 ]
