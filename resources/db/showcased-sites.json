@@ -205,5 +205,17 @@
       "GitHub Pages",
       "Animaitons"
     ]
+  },
+  {
+    "issueNumber": 17,
+    "name": "Abu Naser Portfolio",
+    "url": "https://naser09.github.io/",
+    "imageUrl": "https://github.com/user-attachments/assets/6cd9a30b-ca22-49c2-b2ce-0522cb49d3c3",
+    "description": "Portfolio featuring bottom navigation, dynamic data loading, a dummy terminal with interactive commands, multiple pages, YouTube video embedding.",
+    "siteType": "SSG",
+    "tags": [
+      "Personal Portfolio, Open Source, Animations",
+      "Terminal Simulation"
+    ]
   }
 ]
