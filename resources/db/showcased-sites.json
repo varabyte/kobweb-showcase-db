@@ -296,5 +296,17 @@
       "Simulation",
       "Video Embedding"
     ]
+  },
+  {
+    "issueNumber": 24,
+    "name": "OpinionPro",
+    "url": "https://opinionpro.com.br/",
+    "imageUrl": "https://github.com/user-attachments/assets/cdd05cf6-12ff-4dec-a1f7-ebaab814bed6",
+    "description": "OpinionPro - a web application powered by Kobweb. A solution for data collection and processing.",
+    "siteType": "SSG",
+    "tags": [
+      "Commercial",
+      "Brazil"
+    ]
   }
 ]
