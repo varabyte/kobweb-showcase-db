@@ -325,5 +325,18 @@
       "Android",
       "iOS"
     ]
+  },
+  {
+    "issueNumber": 26,
+    "name": "ClubManager",
+    "url": "https://clubmanager.cc",
+    "imageUrl": "https://github.com/user-attachments/assets/7aef6cb5-b0cf-4d01-b099-9142a7f636bf",
+    "description": "ClubManager is the first all-in-one club management platform specifically designed for football clubs. It's available for desktop, mobile and web, all from one shared Kotlin Multiplatform codebase. The landing page is made with Kobweb for optimal SEO.",
+    "siteType": "SSG",
+    "tags": [
+      "Commercial",
+      "Localisation",
+      "JS-Integration"
+    ]
   }
 ]
